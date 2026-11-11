@@ -1,7 +1,7 @@
 {
-  "name": "Bridge of Allan Judo Kyu Trainer",
+  "name": "Bridge of Allan Judo Grading Trainer",
   "short_name": "BoA Judo",
-  "description": "Kyu grade study aid: words, grading lists, mock grading, tests and contest rules.",
+  "description": "Kyu and Mon grade study aid: words, grading lists, mock grading, tests and contest rules.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
