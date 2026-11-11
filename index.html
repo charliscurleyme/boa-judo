@@ -319,7 +319,7 @@
   <!-- WORDS -->
   <section id="words" class="view">
     <div class="card">
-      <h2>Words and meanings</h2>
+      <h2>Techniques and terms</h2>
       <p class="muted" style="margin-top:-6px">The <b style="color:var(--gold)">bold</b> part is what to listen for. Tap 🔊 to hear it, 🎬 to find videos of the technique.</p>
       <div id="wordList"></div>
     </div>
@@ -484,7 +484,7 @@ function beltCard(b,i){
   const pill = best===null?`<span class="pill">Not tested</span>`:`<span class="pill ${best===n?'done':''}">Best ${best}/${n}</span>`;
   let tags="";for(let t=0;t<(b.tags||0);t++)tags+=`<span class="tg" style="right:${4+t*9}px;background:${b.tag}"></span>`;
   return `<button class="beltcard" data-i="${i}"><span class="swatch" style="background:${b.color}">${tags}</span>
-    <span class="t"><span class="n">${b.name}</span><br><span class="g">${b.grade} · ${n} word${n>1?"s":""}</span></span>${pill}</button>`;
+    <span class="t"><span class="n">${b.name}</span><br><span class="g">${b.grade}<br>${countLabel(b.terms)}</span></span>${pill}</button>`;
 }
 function renderHome(){
   $("beltList").innerHTML=BELTS.map((b,i)=>b.sys==="kyu"?beltCard(b,i):"").join("");
@@ -513,7 +513,7 @@ function setHeader(){
     $("eyebrow").textContent=belt.grade;
     const [w1,...w2]=belt.name.split(" ");
     $("title").innerHTML=`<span>${w1}</span> ${w2.join(" ")}`;
-    $("subtitle").textContent=`${belt.terms.length} words to know`;
+    $("subtitle").textContent=countLabel(belt.terms)+" to know";
     $("backBtn").style.display="inline-flex";
   }
 }
@@ -578,6 +578,9 @@ document.querySelectorAll("#tabs button").forEach(b=>b.onclick=()=>show(b.datase
 
 /* videos: open a YouTube search for the technique (outside the app) */
 const NOVID=new Set(["Tachi-waza","Ne-waza","Osae-komi-waza","Osae-komi","Toketa","Hajime","Mate","Rei","Dojo","Judogi","Judoka","Zori","Randori","Tori","Uke","Nage-komi","Shido","Hansoku-make","Kansetsu-waza","Renraku-waza","Renzoku-waza","Shime-waza","Kaeshi-waza","Kata"]);
+const NOTMOVE=new Set([...NOVID,"Nage-no-kata","Katame-no-kata","Kumi-kata","Waza-ari-awasete-ippon","Hiki-wake"]);
+function countLabel(terms){const m=terms.filter(t=>!NOTMOVE.has(t[0])).length,w=terms.length-m;const parts=[];
+  if(m)parts.push(`${m} technique${m>1?"s":""}`);if(w)parts.push(`${w} term${w>1?"s":""}`);return parts.join(" · ")}
 const QFIX={"San-gaku":"Sankaku","Ko-uchi-gake-maki-komi":"Kouchi makikomi","Kata-ha-jime":"Kataha jime","Mae-mawari-ukemi":"Zenpo kaiten ukemi"};
 function vidUrl(r){let q=r;for(const k in QFIX)if(q.startsWith(k))q=q.replace(k,QFIX[k]);
   return "https://www.youtube.com/results?search_query="+encodeURIComponent(q.replace(/-/g," ")+" judo technique")}
