@@ -1,5 +1,5 @@
 // Offline support: keep the app and its fonts on the phone.
-const CACHE = "boa-judo-v3";
+const CACHE = "boa-judo-v4";
 const CORE = ["./", "./index.html", "./manifest.json", "./icon-192.png", "./icon-512.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE))); self.skipWaiting(); });
 self.addEventListener("activate", e => {
