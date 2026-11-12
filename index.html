@@ -249,6 +249,33 @@
   .miss b{color:#FFFFFF}
   footer a{color:#FFFFFF}
   .bar i{background:linear-gradient(90deg,#DC2626,#F43F5E)}
+
+  /* B: wrapping only at hyphens, balanced lines */
+  .name,.prompt .q,.mock-item,header h1,.beltcard .n,.miss{word-break:normal;overflow-wrap:normal;text-wrap:balance;hyphens:manual}
+  .item>div:first-child{flex:1;min-width:0}
+  .item{gap:10px}
+  .say,.watch{padding:8px;width:40px;height:40px}
+  #qSay{width:auto;padding:8px 14px}
+  /* C: stamp */
+  .stamp{margin:0 0 6px;font-size:13px;color:var(--muted);letter-spacing:.04em}
+  /* D: text size */
+  .sizebar{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--line);background:var(--card);border-radius:18px;padding:12px 16px}
+  .sizebtns{display:flex;align-items:center;gap:10px}
+  .sizebtns button{width:46px;height:40px;border-radius:12px;border:1px solid var(--line);background:transparent;color:#fff;font-weight:700;cursor:pointer}
+  #tsVal{min-width:48px;text-align:center;color:var(--muted);font-size:15px}
+  /* E: tick and cross on answers */
+  .opt{position:relative;padding-right:52px}
+  .opt.good::after,.opt.bad::after{content:"";position:absolute;right:16px;top:50%;width:24px;height:24px;margin-top:-12px;background:center/contain no-repeat}
+  .opt.good::after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E")}
+  .opt.bad::after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FB7185' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18M6 6l12 12'/%3E%3C/svg%3E")}
+
+  .linkcard .g,.opener .g,.beltcard .g{display:block;line-height:1.4;margin-top:4px}
+  .linkcard .n,.opener .n,.beltcard .n{display:block;line-height:1.25}
+  .linkcard>span:last-child br,.opener>span br{display:none}
+  #qSay{gap:10px;padding:8px 16px;height:auto}
+
+  .beltcard .t>br{display:none}
+  .rules li b,.rules p b{white-space:nowrap}
 </style>
 </head>
 <body class="home">
@@ -290,6 +317,9 @@
     <div class="sechead">Theory</div>
     <button class="linkcard" id="rulesBtn"><span class="ic"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 16 3-8 3 8c-.9.6-1.9 1-3 1s-2.1-.4-3-1Z"/><path d="m2 16 3-8 3 8c-.9.6-1.9 1-3 1s-2.1-.4-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></span><span><span class="n">Competition rules</span><br><span class="g">Entering a Scottish tournament? Start here.</span></span></button>
     <button class="linkcard" id="guideBtn" style="background:linear-gradient(180deg,var(--card),var(--bg2));border-color:var(--line)"><span class="ic"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m16.2 7.8-1.8 5.4a2 2 0 0 1-1.3 1.3l-5.3 1.7 1.8-5.4a2 2 0 0 1 1.3-1.3z"/></svg></span><span><span class="n">How grading works</span><br><span class="g">Which grades you're on, and what's next</span></span></button>
+    <div class="sechead">Settings</div>
+    <div class="sizebar"><span>Text size</span>
+      <div class="sizebtns"><button id="tsDown" aria-label="Smaller text">A−</button><span id="tsVal">100%</span><button id="tsUp" aria-label="Bigger text">A+</button></div></div>
     <footer>Made for Bridge of Allan Judo Club. Open to anyone.<br>Unofficial study aid based on the JudoScotland kyu and mon grade syllabus. Always check with your coach.<br>
       <a href="https://www.judoscotland.com/grading/kyu-grades/">JudoScotland kyu grades</a></footer>
   </section>
@@ -297,6 +327,7 @@
   <!-- RULES -->
   <section id="rules" class="view rules">
     <div class="card">
+      <p class="stamp">Last checked: 12 November 2026</p>
       <h2>Which rules apply?</h2>
       <p style="margin-top:0">Scottish events use the <b>IJF contest rules</b> (the international rules), with a few national changes. The 2026 rules have applied since 21 February 2026, and small changes are made during the year.</p>
       <div class="callout">Every event has an information pack. It always wins over this page, so read it before you enter.</div>
@@ -395,6 +426,7 @@
   <!-- GUIDE -->
   <section id="guide" class="view rules">
     <div class="card">
+      <p class="stamp">Last checked: 12 November 2026</p>
       <h2>Which grades are you on?</h2>
       <div class="kv">
         <b>Under 8</b><span><b>Kai</b>. First steps in judo.</span>
@@ -417,10 +449,9 @@
     <div class="card">
       <h2>How a grading works</h2>
       <ul>
-        <li>Your coach grades you at the club. Lower grades are done in your own club by a licensed coach.</li>
+        <li>All Mon and Kyu gradings are done at your club, by your coach.</li>
         <li>You show the techniques for your next grade, usually in the order on the list.</li>
         <li>You may be asked what the Japanese names mean, and some questions on rules and judo history.</li>
-        <li>From 4th Kyu, seniors can also go to JudoScotland National Gradings.</li>
       </ul>
     </div>
 
@@ -677,6 +708,12 @@ function goHome(){
 $("backBtn").onclick=goHome;
 $("guideBtn").onclick=()=>{belt=null;view="guide";setHeader();show("guide");try{history.replaceState(null,"","#guide")}catch(e){}};
 $("rulesBtn").onclick=()=>{belt=null;view="rules";setHeader();show("rules");try{history.replaceState(null,"","#rules")}catch(e){}};
+/* text size */
+const TS=[90,100,115,130];
+function applyTS(v){document.querySelectorAll("header,main").forEach(el=>el.style.zoom=v/100);$("tsVal").textContent=v+"%";save("ts",v)}
+let ts=load("ts",100);if(!TS.includes(ts))ts=100;applyTS(ts);
+$("tsDown").onclick=()=>{ts=TS[Math.max(0,TS.indexOf(ts)-1)];applyTS(ts)};
+$("tsUp").onclick=()=>{ts=TS[Math.min(TS.length-1,TS.indexOf(ts)+1)];applyTS(ts)};
 /* belts drawers */
 function drawer(name,open){$(name+"Drawer").classList.toggle("open",open);$(name+"Open").classList.toggle("open",open);$(name+"Open").setAttribute("aria-expanded",open);save("drawer."+name,open)}
 ["kyu","mon"].forEach(nm=>{$(nm+"Open").onclick=()=>drawer(nm,!$(nm+"Drawer").classList.contains("open"));drawer(nm,load("drawer."+nm,false))});
