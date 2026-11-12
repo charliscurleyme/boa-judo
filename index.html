@@ -276,6 +276,14 @@
 
   .beltcard .t>br{display:none}
   .rules li b,.rules p b{white-space:nowrap}
+
+  /* header text always above the belt graphic */
+  header>*{position:relative;z-index:2}
+  header .hbelt,header .kanji{position:absolute;z-index:0}
+  header .hbadge{position:absolute;z-index:1}
+  .back{display:flex;width:max-content;margin-bottom:14px}
+  .eyebrow{display:flex}
+  .eyebrow span{text-shadow:0 1px 8px rgba(10,10,12,.9)}
 </style>
 </head>
 <body class="home">
